@@ -1,0 +1,80 @@
+/* navbar.css */
+
+/* Base Navbar Styles */
+.navbar {
+  background-color: #1f2937; /* bg-gray-800 */
+  color: white;
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); /* shadow */
+}
+
+/* Logo/Link Styles */
+.navbar__logo {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  color: #d8b4fe; /* text-purple-300 */
+  text-decoration: none;
+}
+
+.navbar__logo:hover {
+  color: white;
+}
+
+/* Navigation Links Container */
+.navbar__links {
+  display: flex;
+  gap: 1rem; /* space-x-4 */
+}
+
+/* Navigation Link Items */
+.navbar__link {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar__link:hover {
+  color: #d8b4fe; /* hover:text-purple-300 */
+}
+
+/* User Info Styles */
+.navbar__user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* space-x-3 */
+}
+
+.navbar__welcome {
+  font-size: 0.875rem; /* text-sm */
+}
+
+/* Button Styles */
+.navbar__button {
+  padding: 0.25rem 0.5rem; /* px-2 py-1 for logout, px-3 py-1 for login */
+  font-size: 0.875rem; /* text-sm */
+  border-radius: 0.25rem; /* rounded */
+  cursor: pointer;
+  border: none;
+}
+
+.navbar__button--logout {
+  background-color: #ef4444; /* bg-red-500 */
+  color: white;
+}
+
+.navbar__button--logout:hover {
+  background-color: #dc2626; /* hover:bg-red-600 */
+}
+
+.navbar__button--login {
+  background-color: #3b82f6; /* bg-blue-500 */
+  color: white;
+  padding: 0.25rem 0.75rem; /* px-3 py-1 */
+  text-decoration: none;
+}
+
+.navbar__button--login:hover {
+  background-color: #2563eb; /* hover:bg-blue-600 */
+}
