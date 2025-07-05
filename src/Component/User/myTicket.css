@@ -1,0 +1,148 @@
+/* Ticket Container */
+.ticket-container {
+  background-color: #121212;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #e0e0e0;
+}
+
+/* Ticket Header */
+.ticket-header {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.ticket-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background-color: #d10000;
+}
+
+/* Ticket Card */
+.ticket-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.ticket-title {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 0.5rem;
+}
+
+.ticket-detail {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  display: flex;
+}
+
+.ticket-label {
+  color: #b0b0b0;
+  min-width: 120px;
+  font-weight: 500;
+}
+
+.ticket-value {
+  flex: 1;
+}
+
+.highlight-value {
+  color: #d10000;
+  font-weight: 600;
+}
+
+/* QR Code Container */
+.qr-container {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 4px;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.ticket-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+.cancel-button {
+  background-color: #d10000;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #a80000;
+  transform: translateY(-2px);
+}
+
+.download-button {
+  background-color: #333;
+  color: white;
+}
+
+.download-button:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+}
+
+/* No Ticket Message */
+.no-ticket {
+  text-align: center;
+  color: #b0b0b0;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ticket-container {
+    padding: 1rem;
+  }
+  
+  .ticket-header {
+    font-size: 1.5rem;
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+  
+  .ticket-button {
+    width: 100%;
+  }
+}

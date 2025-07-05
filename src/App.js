@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import API from './api/axiosInstance';
+import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,26 +25,32 @@ function App() {
   };
 
   return (
-    <div>
-      <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
-        <Link to="/" style={{ marginRight: '10px' }}>Home</Link>
+    <div className="app-container">
+      <nav className="navbar">
+        <Link to="/" className="brand">
+          <span>🎵 Concert</span>Hub
+        </Link>
 
-        {!user ? (
-          <>
-            <Link to="/login" style={{ marginRight: '10px' }}>Login</Link>
-            <Link to="/register">Register</Link>
-          </>
-        ) : (
-          <>
-            <span style={{ marginRight: '10px' }}>
-              Welcome, {user.username} ({user.role})
-            </span>
-            <button onClick={logout}>Logout</button>
-          </>
-        )}
+        <div className="nav-links">
+          {!user ? (
+            <>
+              <Link to="/login" className="nav-link">Login</Link>
+              <Link to="/register" className="nav-link">Register</Link>
+            </>
+          ) : (
+            <>
+              <span className="user-greeting">
+                Welcome, {user.username} <span className="user-role">({user.role})</span>
+              </span>
+              <button onClick={logout} className="logout-btn">Logout</button>
+            </>
+          )}
+        </div>
       </nav>
 
-      <Outlet />
+      <main className="main-content">
+        <Outlet />
+      </main>
     </div>
   );
 }

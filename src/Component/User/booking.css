@@ -1,0 +1,164 @@
+/* Booking Container */
+.booking-container {
+  background-color: #121212;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #e0e0e0;
+}
+
+/* Booking Box */
+.booking-box {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Booking Header */
+.booking-header {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.booking-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background-color: #d10000;
+}
+
+/* Concert Card */
+.concert-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.concert-card:hover {
+  box-shadow: 0 6px 12px rgba(209, 0, 0, 0.2);
+  border-color: #d10000;
+}
+
+.concert-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.concert-title {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.concert-detail {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.concert-detail strong {
+  color: #b0b0b0;
+  margin-right: 0.5rem;
+}
+
+/* Booking Form */
+.booking-form {
+  margin-top: 1.5rem;
+}
+
+.quantity-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #b0b0b0;
+}
+
+.quantity-input {
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 0.8rem;
+  color: #fff;
+  width: 100%;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.quantity-input:focus {
+  outline: none;
+  border-color: #d10000;
+  box-shadow: 0 0 0 2px rgba(209, 0, 0, 0.2);
+}
+
+/* Price Summary */
+.price-summary {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #2a2a2a;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.total-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #d10000;
+  margin-top: 0.5rem;
+}
+
+/* Booking Button */
+.booking-button {
+  background-color: #d10000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 1rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+}
+
+.booking-button:hover {
+  background-color: #a80000;
+  transform: translateY(-2px);
+}
+
+.booking-button:disabled {
+  background-color: #333;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .booking-container {
+    padding: 1rem;
+  }
+  
+  .booking-header {
+    font-size: 1.5rem;
+  }
+  
+  .concert-image {
+    height: 200px;
+  }
+}

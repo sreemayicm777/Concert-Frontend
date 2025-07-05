@@ -1,0 +1,117 @@
+/* Base Styles */
+.dark-theme {
+  background-color: #121212;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Header */
+.booking-header {
+  color: #fff;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.booking-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background-color: #d10000;
+}
+
+/* Table Styles */
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.booking-table thead {
+  background-color: #1e1e1e;
+}
+
+.booking-table th {
+  padding: 1rem;
+  text-align: left;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #d10000;
+}
+
+.booking-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.booking-table tbody tr {
+  background-color: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.booking-table tbody tr:hover {
+  background-color: #2a2a2a;
+}
+
+/* Status Badges */
+.status-completed {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.status-pending {
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.status-failed {
+  color: #f44336;
+  font-weight: 500;
+}
+
+/* Price Highlight */
+.price-highlight {
+  color: #d10000;
+  font-weight: 600;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #b0b0b0;
+  font-size: 1.1rem;
+}
+
+/* Access Denied */
+.access-denied {
+  text-align: center;
+  padding: 2rem;
+  color: #f44336;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .booking-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .booking-header {
+    font-size: 1.5rem;
+  }
+}

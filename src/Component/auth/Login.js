@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import API from '../../api/axiosInstance';
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar'; // adjust the path based on where your Navbar component is located
+import { useNavigate, Link } from 'react-router-dom';
+import './login.css';
 
 function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -21,18 +21,17 @@ function Login() {
   };
 
   return (
-    <div>
-      <Navbar user={null} /> {/* You can pass `null` since the user isn't logged in yet */}
-      <div className="max-w-sm mx-auto mt-10 p-4 border rounded shadow">
-        <h2 className="text-xl font-bold mb-4">Login</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
+    <div className="login-container">
+      <div className="login-box">
+        <h2 className="login-title">Login</h2>
+        <form onSubmit={handleSubmit} className="login-form">
           <input
             type="email"
             placeholder="Email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
-            className="w-full border px-3 py-2 rounded"
+            className="login-input"
           />
           <input
             type="password"
@@ -40,12 +39,16 @@ function Login() {
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             required
-            className="w-full border px-3 py-2 rounded"
+            className="login-input"
           />
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+          <button type="submit" className="login-submit">
             Login
           </button>
         </form>
+        <div className="register-redirect">
+          <span>Don't have an account?</span>
+          <Link to="/register" className="register-link">Register here</Link>
+        </div>
       </div>
     </div>
   );

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import API from '../../api/axiosInstance';
 import jsPDF from 'jspdf';
 import { QRCodeCanvas } from 'qrcode.react';
+import './myTicket.css';
 
 function MyTicketPage() {
   const [ticket, setTicket] = useState(null);
   const [user, setUser] = useState(null);
 
-  // Get user info
   useEffect(() => {
     API.get('/auth/me')
       .then(res => {
@@ -19,7 +19,6 @@ function MyTicketPage() {
       });
   }, []);
 
-  // Load recently booked ticket only
   useEffect(() => {
     const recentTicketId = localStorage.getItem('recentTicketId');
     if (recentTicketId && user?.id) {
@@ -44,54 +43,150 @@ function MyTicketPage() {
     }
   };
 
-  const generatePDF = () => {
-    if (!ticket) return;
+
+const generatePDF = async () => {
+  if (!ticket) return;
+
+  try {
     const doc = new jsPDF();
-    doc.setFontSize(14);
-    doc.text('🎟️ Concert Ticket', 20, 20);
-    doc.text(`Concert: ${ticket.concertSubCategory?.name}`, 20, 40);
-    doc.text(`Artist: ${ticket.concertSubCategory?.artist}`, 20, 50);
-    doc.text(`Date: ${new Date(ticket.concertSubCategory?.date).toLocaleDateString()}`, 20, 60);
-    doc.text(`Venue: ${ticket.concertSubCategory?.venue}`, 20, 70);
-    doc.text(`Tickets: ${ticket.quantity}`, 20, 80);
-    doc.text(`Total: ₹${ticket.totalPrice}`, 20, 90);
-    doc.text(`Status: ${ticket.paymentStatus}`, 20, 100);
-    doc.text(`Ticket ID: ${ticket._id}`, 20, 110);
-    doc.save(`Ticket_${ticket._id}.pdf`);
-  };
+
+    // Add header
+    doc.setFontSize(20);
+    doc.setTextColor(209, 0, 0);
+    doc.text(' Concert Ticket', 105, 15, null, null, 'center');
+
+    // Add concert info
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    const yStart = 30;
+    const lineSpacing = 10;
+
+    const concert = ticket.concertSubCategory;
+    const lines = [
+      `Concert: ${concert?.name}`,
+      `Artist: ${concert?.artist}`,
+      `Date: ${new Date(concert?.date).toLocaleDateString()}`,
+      `Time: ${concert?.time}`,
+      `Venue: ${concert?.venue}`,
+      `Ticket ID: ${ticket._id}`,
+      `Tickets: ${ticket.quantity}`,
+      `Total Price: Rs.${ticket.totalPrice}`,
+      `Payment Status: ${ticket.paymentStatus}`
+    ];
+
+    lines.forEach((text, index) => {
+      doc.text(text, 20, yStart + index * lineSpacing);
+    });
+
+    // Fetch QR code as SVG and convert to PNG (via canvas)
+    const qrCodeUrl = 'https://hexdocs.pm/qr_code/docs/qrcode.svg';
+    const response = await fetch(qrCodeUrl);
+    const svgText = await response.text();
+
+    // Convert SVG to Data URL
+    const svgBlob = new Blob([svgText], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.src = url;
+
+    img.onload = () => {
+      // Create canvas to draw PNG
+      const canvas = document.createElement('canvas');
+      canvas.width = 150;
+      canvas.height = 150;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      const pngDataUrl = canvas.toDataURL('image/png');
+      doc.addImage(pngDataUrl, 'PNG', 140, 40, 50, 50);
+
+      // Footer
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Thank you for using ConcertHub!', 105, 150, null, null, 'center');
+
+      doc.save(`ConcertTicket_${ticket._id}.pdf`);
+      URL.revokeObjectURL(url); // Clean up
+    };
+
+    img.onerror = () => {
+      alert('Failed to load QR code image.');
+    };
+  } catch (err) {
+    console.error('Error generating PDF:', err);
+    alert('Failed to generate PDF.');
+  }
+};
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">🎟️ My Ticket</h2>
+    <div className="ticket-container">
+      <h2 className="ticket-header">🎟️ My Ticket</h2>
 
       {!ticket ? (
-        <p>No recent ticket found.</p>
+        <p className="no-ticket">No recent ticket found.</p>
       ) : (
-        <div className="border p-4 rounded shadow max-w-md">
-          <h3 className="font-semibold text-lg">{ticket.concertSubCategory?.name}</h3>
-          <p><strong>Artist:</strong> {ticket.concertSubCategory?.artist}</p>
-          <p><strong>Date:</strong> {new Date(ticket.concertSubCategory?.date).toLocaleDateString()}</p>
-          <p><strong>Venue:</strong> {ticket.concertSubCategory?.venue}</p>
-          <p><strong>Tickets:</strong> {ticket.quantity}</p>
-          <p><strong>Total Paid:</strong> ₹{ticket.totalPrice}</p>
-          <p><strong>Status:</strong> {ticket.paymentStatus}</p>
-          <p><strong>Ticket ID:</strong> {ticket._id}</p>
-          <div className="my-2">
-            <QRCodeCanvas value={ticket._id} size={80} />
+        <div className="ticket-card">
+          <h3 className="ticket-title">{ticket.concertSubCategory?.name}</h3>
+          
+          <div className="ticket-detail">
+            <span className="ticket-label">Artist:</span>
+            <span className="ticket-value">{ticket.concertSubCategory?.artist}</span>
+          </div>
+          
+          <div className="ticket-detail">
+            <span className="ticket-label">Date:</span>
+            <span className="ticket-value">{new Date(ticket.concertSubCategory?.date).toLocaleDateString()}</span>
+          </div>
+          
+          <div className="ticket-detail">
+            <span className="ticket-label">Time:</span>
+            <span className="ticket-value">{ticket.concertSubCategory?.time}</span>
+          </div>
+          
+          <div className="ticket-detail">
+            <span className="ticket-label">Venue:</span>
+            <span className="ticket-value">{ticket.concertSubCategory?.venue}</span>
+          </div>
+          
+          <div className="ticket-detail">
+            <span className="ticket-label">Tickets:</span>
+            <span className="ticket-value">{ticket.quantity}</span>
+          </div>
+          
+          <div className="ticket-detail">
+            <span className="ticket-label">Total Paid:</span>
+            <span className="ticket-value highlight-value">₹{ticket.totalPrice}</span>
+          </div>
+          
+          <div className="ticket-detail">
+            <span className="ticket-label">Status:</span>
+            <span className="ticket-value">{ticket.paymentStatus}</span>
+          </div>
+          
+          <div className="ticket-detail">
+            <span className="ticket-label">Ticket ID:</span>
+            <span className="ticket-value">{ticket._id}</span>
           </div>
 
-          <button
-            className="mt-2 bg-red-600 text-white px-3 py-1 rounded mr-2"
-            onClick={handleCancel}
-          >
-            Cancel Ticket
-          </button>
-          <button
-            onClick={generatePDF}
-            className="bg-blue-600 text-white px-3 py-1 rounded"
-          >
-            Download PDF
-          </button>
+          <div className="qr-container">
+            <QRCodeCanvas value={ticket._id} size={150} />
+          </div>
+
+          <div className="button-group">
+            <button
+              className="ticket-button cancel-button"
+              onClick={handleCancel}
+            >
+              Cancel Ticket
+            </button>
+            <button
+              onClick={generatePDF}
+              className="ticket-button download-button"
+            >
+              Download PDF
+            </button>
+          </div>
         </div>
       )}
     </div>
